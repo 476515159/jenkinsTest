@@ -31,7 +31,7 @@ namespace test2
             });
 
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,11 +49,9 @@ namespace test2
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+            app.UseRouting();
+            app.UseEndpoints(o=> {
+                o.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
