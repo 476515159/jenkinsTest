@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,7 +33,10 @@ namespace test2
             });
 
 
-            services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All);
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
